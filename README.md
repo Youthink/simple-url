@@ -108,7 +108,7 @@ console.log(path1 === path2)
 | **Params** | **Description** |
 | --- | --- |
 | url |  Url to parse. |
-| structuredHash | If it's true, the hash will be parsed by [qs](https://github.com/ljharb/qs)'s `parse` method, the default value is `false`.|
+| structuredHash | If it's `true`, the hash will be parsed by [qs](https://github.com/ljharb/qs)'s `parse` method, the default value is `false`.|
 
 This method parses the given `url` and returns `null`(invalid url) or `object` like:
 ```javascript
@@ -118,7 +118,7 @@ This method parses the given `url` and returns `null`(invalid url) or `object` l
   host: 'host.com:8080', // '' if mismatch
   pathname: '/p/a/t/h', // '' if mismatch
   query: {foo: 'bar'}, // {} if mismatch
-  hash: 'hash' // '' if mismatch
+  hash: 'hash' // '' or {}(structuredHash is true) if mismatch
 }
 ```
 __Note:__ `url` for **url.parse** is not necessary to be a complete url, it can be `//host.com : 8080/path?query=string#hash`, `/path?query=string`, etc.
@@ -128,7 +128,7 @@ __Note:__ `url` for **url.parse** is not necessary to be a complete url, it can 
 | **Params** | **Description** |
 | --- | --- |
 | options |  Options to create a url. |
-| structuredHash | If it's true, the hash will be encoded by [qs](https://github.com/ljharb/qs)'s `stringify` method, the default value is `false`.|
+| structuredHash | If it's `true`, the hash will be encoded by [qs](https://github.com/ljharb/qs)'s `stringify` method, the default value is `false`.|
 
 This method creates a url with the given options.
 
