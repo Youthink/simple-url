@@ -53,11 +53,11 @@ console.log(parsedUrl);
 */
 
 
-var url = urlUtils.create({protocol: 'https', host: github.com});
+var url = urlUtils.create({protocol: 'https', host: 'github.com', hash: {foo: 'bar'}}, true);
 console.log(url);
 /**
 * The output is:
-* https://github.com
+* https://github.com/#foo=bar
 */
 
 var path1 = urlUtils.createPath('/foo/bar', {colors: ['red', 'green', 'blue']});
@@ -76,7 +76,12 @@ console.log(path1 === path2)
 ```
 
 ## methods
-### url.parse
+### url.parse(url[, structuredHash])
+
+| **Params** | **Description** |
+| --- | --- |
+| url |  Url to parse. |
+| structuredHash | If it's true, the hash will be parsed by [qs](https://github.com/ljharb/qs)'s `parse` method, the default value is `false`.|
 
 This method parses the given `url` and returns `null`(invalid url) or `object` like:
 ```javascript
@@ -91,7 +96,12 @@ This method parses the given `url` and returns `null`(invalid url) or `object` l
 ```
 __Note:__ `url` for **url.parse** is not necessary to be a complete url, it can be `//host.com : 8080/path?query=string#hash`, `/path?query=string`, etc.
 
-### url.create(options)
+### url.create(options[, structuredHash])
+
+| **Params** | **Description** |
+| --- | --- |
+| options |  Options to create a url. |
+| structuredHash | If it's true, the hash will be encoded by [qs](https://github.com/ljharb/qs)'s `stringify` method, the default value is `false`.|
 
 This method creates a url with the given options.
 
@@ -106,12 +116,13 @@ This method creates a url with the given options.
 
 None of these options is required, it will produce a `"http://localhost"` if you call `url.create()` only.
 
-### url.createPath(pathname, query, hash) or url.createPath(options)
+### url.createPath(pathname, query, hash[, structuredHash]) or url.createPath(options[, structuredHash])
 
-This mehtod simply crates a path and it's params have the same defaults with **url.create** options. It leaves param `hash` there for convenience though it is not a part of path.
+This mehtod simply crates a path and it's params have the same defaults with **url.create**'s. It leaves param `hash` there for convenience though it is not a part of path.
 
 ### url.qs
 
-This is exactly the reference of [qs](https://github.com/ljharb/qs), which is the only dependency of **simple-url**. It is exposed just for convenience. For example, you want to store some structured data in hash.
+This is exactly the reference of [qs](https://github.com/ljharb/qs), which is the only dependency of **simple-url**. It is exposed just for convenience.
 
-
+## License
+MIT
