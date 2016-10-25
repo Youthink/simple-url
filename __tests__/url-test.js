@@ -29,15 +29,3 @@ it('test url.create', () => {
   expect(url.createPath({pathname: '/foo/bar', query: {foo: 'bar'}, hash: 'bar'}))
     .toBe('/foo/bar?foo=bar#bar');
 });
-
-it('test structured hash', () => {
-  expect(url.parse(url.createPath('/foo/bar', {foo: '吧'}, {foo: '吧'}, true), true))
-    .toEqual({
-      protocol: '',
-      auth: '',
-      host: '',
-      pathname: '/foo/bar',
-      query: {foo: "吧"},
-      hash: {foo: "吧"}
-    });
-});
