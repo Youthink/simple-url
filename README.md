@@ -1,5 +1,5 @@
 # simple-url
-**simple-url** is a lib of utilities for url.
+**simple-url** is a lib of utilities for url which can be used in both browser and node.js.
 
 ## Installing
 Use via npm:
@@ -54,34 +54,15 @@ console.log(parsedUrl);
 */
 ```
 
-Parse a url with structured hash:
+Create a url:
 ```javascript
 var urlUtils = require('simple-url');
 
-var parsedUrl = urlUtils.parse('https://github.com/#colors%5B0%5D=red&colors%5B1%5D=green&colors%5B2%5D=blue');
-console.log(parsedUrl);
-/**
-* The output is:
-* {
-*   protocol: 'https',
-*   auth: '',
-*   host: 'github.com',
-*   pathname: '/',
-*   query: {},
-*   hash: {colors: ['red', 'green', 'blue']}
-* }
-*/
-```
-
-Create a url with structured hash:
-```javascript
-var urlUtils = require('simple-url');
-
-var url = urlUtils.create({protocol: 'https', host: 'github.com', hash: {colors: ['red', 'green', 'blue']}}, true);
+var url = urlUtils.create({protocol: 'https', host: 'github.com', query: {colors: ['red', 'green', 'blue']}});
 console.log(url);
 /**
 * The output is:
-* https://github.com/#colors%5B0%5D=red&colors%5B1%5D=green&colors%5B2%5D=blue
+* https://github.com/?colors%5B0%5D=red&colors%5B1%5D=green&colors%5B2%5D=blue
 */
 ```
 
@@ -103,12 +84,11 @@ console.log(path1 === path2)
 ```
 
 ## methods
-### url.parse(url[, structuredHash])
+### url.parse(url)
 
 | **Params** | **Description** |
 | --- | --- |
 | url |  Url to parse. |
-| structuredHash | If it's `true`, the hash will be parsed by [qs](https://github.com/ljharb/qs)'s `parse` method, the default value is `false`.|
 
 This method parses the given `url` and returns `null`(invalid url) or `object` like:
 ```javascript
@@ -118,17 +98,16 @@ This method parses the given `url` and returns `null`(invalid url) or `object` l
   host: 'host.com:8080', // '' if mismatch
   pathname: '/p/a/t/h', // '' if mismatch
   query: {foo: 'bar'}, // {} if mismatch
-  hash: 'hash' // '' or {}(structuredHash is true) if mismatch
+  hash: 'hash' // '' if mismatch
 }
 ```
 __Note:__ `url` for **url.parse** is not necessary to be a complete url, it can be `//host.com : 8080/path?query=string#hash`, `/path?query=string`, etc.
 
-### url.create(options[, structuredHash])
+### url.create(options)
 
 | **Params** | **Description** |
 | --- | --- |
 | options |  Options to create a url. |
-| structuredHash | If it's `true`, the hash will be encoded by [qs](https://github.com/ljharb/qs)'s `stringify` method, the default value is `false`.|
 
 This method creates a url with the given options.
 
@@ -143,9 +122,9 @@ This method creates a url with the given options.
 
 None of these options is required, it will produce a `"http://localhost"` if you call `url.create()` only.
 
-### url.createPath(pathname, query, hash[, structuredHash]) or url.createPath(options[, structuredHash])
+### url.createPath(pathname, query, hash) or url.createPath(options)
 
-This mehtod simply crates a path and it's params have the same defaults with **url.create**'s. It leaves param `hash` there for convenience though it is not a part of path.
+This method simply crates a path and it's params have the same defaults with **url.create**'s. It leaves param `hash` there for convenience though it is not a part of path.
 
 ### url.qs
 
