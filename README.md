@@ -33,9 +33,10 @@ The following illustration comes from [nodejs docs](https://nodejs.org/api/url.h
 (all spaces in the "" line should be ignored -- they are purely for formatting)
 ```
 
-## Example
-```javascript
+## Examples
 
+Parse a url:
+```javascript
 var urlUtils = require('simple-url');
 
 var parsedUrl = urlUtils.parse('http://foo.com/pathname/?foo=bar');
@@ -51,15 +52,41 @@ console.log(parsedUrl);
 *   hash: ''
 * }
 */
+```
 
+Parse a url with structured hash:
+```javascript
+var urlUtils = require('simple-url');
 
-var url = urlUtils.create({protocol: 'https', host: 'github.com', hash: {foo: 'bar'}}, true);
+var parsedUrl = urlUtils.parse('https://github.com/#colors%5B0%5D=red&colors%5B1%5D=green&colors%5B2%5D=blue');
+console.log(parsedUrl);
+/**
+* The output is:
+* {
+*   protocol: 'https',
+*   auth: '',
+*   host: 'github.com',
+*   pathname: '/',
+*   query: {},
+*   hash: {colors: ['red', 'green', 'blue']}
+* }
+*/
+```
+
+Create a url with structured hash:
+```javascript
+var urlUtils = require('simple-url');
+
+var url = urlUtils.create({protocol: 'https', host: 'github.com', hash: {colors: ['red', 'green', 'blue']}}, true);
 console.log(url);
 /**
 * The output is:
-* https://github.com/#foo=bar
+* https://github.com/#colors%5B0%5D=red&colors%5B1%5D=green&colors%5B2%5D=blue
 */
+```
 
+Create a path:
+```javascript
 var path1 = urlUtils.createPath('/foo/bar', {colors: ['red', 'green', 'blue']});
 console.log(path);
 /*
@@ -122,7 +149,7 @@ This mehtod simply crates a path and it's params have the same defaults with **u
 
 ### url.qs
 
-This is exactly the reference of [qs](https://github.com/ljharb/qs), which is the only dependency of **simple-url**. It is exposed just for convenience.
+This is exactly a reference to [qs](https://github.com/ljharb/qs), which is the only dependency of **simple-url**. It is exposed just for convenience.
 
 ## License
 MIT
