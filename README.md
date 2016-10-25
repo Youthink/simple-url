@@ -58,7 +58,11 @@ Create a url:
 ```javascript
 var urlUtils = require('simple-url');
 
-var url = urlUtils.create({protocol: 'https', host: 'github.com', query: {colors: ['red', 'green', 'blue']}});
+var url = urlUtils.create({
+    protocol: 'https',
+    host: 'github.com',
+    query: {colors: ['red', 'green', 'blue']}
+  });
 console.log(url);
 /**
 * The output is:
@@ -68,14 +72,20 @@ console.log(url);
 
 Create a path:
 ```javascript
-var path1 = urlUtils.createPath('/foo/bar', {colors: ['red', 'green', 'blue']});
+var path1 = urlUtils.createPath(
+    '/foo/bar',
+    {colors: ['red', 'green', 'blue']}
+  );
 console.log(path);
 /*
 * The output is:
 * /foo/bar?colors%5B0%5D=red&colors%5B1%5D=green&colors%5B2%5D=blue
 */
 
-var path2 = urlUtils.createPath({pathname: '/foo/bar', query: {colors: ['red', 'green', 'blue']}});
+var path2 = urlUtils.createPath({
+    pathname: '/foo/bar',
+    query: {colors: ['red', 'green', 'blue']}
+  });
 console.log(path1 === path2)
 /**
 * The output is:
