@@ -16,7 +16,7 @@ Use in browser:
 
 Scripts for browser is under [build](https://github.com/Jimmy-YMJ/simple-url/tree/master/build) directory, use `url.js` for development (contains inline source maps) or use `url.min.js` for production. The reference in browser is `window.simpleUrl`.
 
-## Structure of url
+## The structure of a url
 The following illustration comes from [nodejs docs](https://nodejs.org/api/url.html).
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
