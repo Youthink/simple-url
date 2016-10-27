@@ -2,14 +2,14 @@ const qs =  require('qs');
 
 const urlRegex = /^(?:([^:/?#]+):(?=\/\/))?(?:\/\/(?:(.*?)@)?([^/?#]*)?)?([^?#]*)(?:\?([^#]*))?(?:#(.*))?/;
 
-const parseUrl = (url) => {
+const parseUrl = (url, parseQuery) => {
   let match = urlRegex.exec(url);
   return match && {
       protocol: match[1] || '',
       auth: match[2] || '',
       host: match[3] || '',
       pathname: match[4] || '',
-      query: qs.parse(match[5]),
+      query: parseQuery === true ? qs.parse(match[5]) : match[5],
       hash: decodeURIComponent(match[6] || '')
   };
 };
@@ -29,7 +29,7 @@ const url =  {
     }
     pathname = pathname || '/';
     pathname = pathname.charAt(0) === '/' ? pathname : '/' + pathname;
-    query = query ? `?${qs.stringify(query)}` : '';
+    query = query ? (typeof query === 'string' ? query : `?${qs.stringify(query)}`) : '';
     hash = hash ? `#${encodeURIComponent(hash)}` : '';
     return pathname + query + hash;
   },
