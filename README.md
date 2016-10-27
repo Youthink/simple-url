@@ -39,7 +39,7 @@ Parse a url:
 ```javascript
 var urlUtils = require('simple-url');
 
-var parsedUrl = urlUtils.parse('http://foo.com/pathname/?foo=bar');
+var parsedUrl = urlUtils.parse('http://foo.com/pathname/?foo=bar', true);
 console.log(parsedUrl);
 /**
 * The output is:
@@ -94,11 +94,12 @@ console.log(path1 === path2)
 ```
 
 ## methods
-### url.parse(url)
+### url.parse(url, parseQuery)
 
-| **Params** | **Description** |
-| --- | --- |
-| url |  Url to parse. |
+| **Params** | **Type** | **Description** |
+| --- | --- | --- |
+| url | `String` |  Url to parse. |
+| parseQuery | `Boolean` | QueryString will be parsed if it's `true`, default `false` |
 
 This method parses the given `url` and returns `null`(invalid url) or `object` like:
 ```javascript
@@ -115,20 +116,16 @@ __Note:__ `url` for **url.parse** is not necessary to be a complete url, it can 
 
 ### url.create(options)
 
-| **Params** | **Description** |
-| --- | --- |
-| options |  Options to create a url. |
-
 This method creates a url with the given options.
 
-| **Options** | **default** |
-| --- | --- |
-| protocal |  'http' |
-| auth | '' |
-| host |  'localhost' |
-| pathname |  '/' |
-| query |  {} |
-| hash |  '' |
+| **Options** | **Type** | **Default** |
+| --- | --- | --- |
+| protocal | `String` | 'http' |
+| auth | `String` | '' |
+| host |  `String` | 'localhost' |
+| pathname | `String` | '/' |
+| query |  `String` or `Obj` | '' |
+| hash |  `String` | '' |
 
 None of these options is required, it will produce a `"http://localhost"` if you call `url.create()` only.
 
