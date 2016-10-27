@@ -1,7 +1,7 @@
 var url = require('../build/url.min');
 
 it('test url.parse', () => {
-  expect(url.parse('http://username:password@localhost:3000/foo/?foo=bar#foo'))
+  expect(url.parse('http://username:password@localhost:3000/foo/?foo=bar#foo', true))
     .toEqual({
       protocol: 'http',
       auth: 'username:password',
@@ -10,13 +10,22 @@ it('test url.parse', () => {
       query: {foo: 'bar'},
       hash: 'foo'
     });
-  expect(url.parse('/foo/bar?foo=bar'))
+  expect(url.parse('/foo/bar?foo=bar', true))
     .toEqual({
       protocol: '',
       auth: '',
       host: '',
       pathname: '/foo/bar',
       query: {foo: "bar"},
+      hash: ''
+    });
+  expect(url.parse('/foo/bar?foo=bar'))
+    .toEqual({
+      protocol: '',
+      auth: '',
+      host: '',
+      pathname: '/foo/bar',
+      query: 'foo=bar',
       hash: ''
     });
 });
