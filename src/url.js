@@ -8,7 +8,7 @@ const parseUrl = (url, parseQuery) => {
       protocol: match[1] || '',
       auth: match[2] || '',
       host: match[3] || '',
-      pathname: match[4] || '',
+      pathname: decodeURI(match[4] || ''),
       query: parseQuery === true ? qs.parse(match[5]) : match[5],
       hash: decodeURIComponent(match[6] || '')
   };
@@ -31,7 +31,7 @@ const url =  {
     pathname = pathname.charAt(0) === '/' ? pathname : '/' + pathname;
     query = query ? (typeof query === 'string' ? query : `?${qs.stringify(query)}`) : '';
     hash = hash ? `#${encodeURIComponent(hash)}` : '';
-    return pathname + query + hash;
+    return encodeURI(pathname) + query + hash;
   },
   qs: qs
 };
