@@ -29,7 +29,7 @@ const url =  {
     }
     pathname = pathname || '/';
     pathname = pathname.charAt(0) === '/' ? pathname : '/' + pathname;
-    query = query ? (typeof query === 'string' ? query : `?${qs.stringify(query)}`) : '';
+    query = query ? (typeof query === 'string' ? `?${query}` : `?${qs.stringify(query)}`) : '';
     hash = hash ? `#${encodeURIComponent(hash)}` : '';
     return encodeURI(pathname) + query + hash;
   },
