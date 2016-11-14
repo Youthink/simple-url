@@ -37,9 +37,9 @@ The following illustration comes from [nodejs docs](https://nodejs.org/api/url.h
 
 Parse a url:
 ```javascript
-var urlUtils = require('simple-url');
+var simpleUrl = require('simple-url');
 
-var parsedUrl = urlUtils.parse('http://foo.com/pathname/?foo=bar', true);
+var parsedUrl = simpleUrl.parse('http://foo.com/pathname/?foo=bar', true);
 console.log(parsedUrl);
 /**
 * The output is:
@@ -54,11 +54,23 @@ console.log(parsedUrl);
 */
 ```
 
+Trim origin:
+```javascript
+var simpleUrl = require('simple-url');
+
+console.log(simpleUrl.trimOrigin('http://foo.com/pathname/?foo=bar'));
+// Output: /pathname/?foo=bar
+
+console.log(simpleUrl.trimOrigin(/pathname/?foo=bar));
+// Output: /pathanem/?foo=bar
+
+```
+
 Create a url:
 ```javascript
-var urlUtils = require('simple-url');
+var simpleUrl = require('simple-url');
 
-var url = urlUtils.create({
+var url = simpleUrl.create({
     protocol: 'https',
     host: 'github.com',
     query: {colors: ['red', 'green', 'blue']}
@@ -72,7 +84,7 @@ console.log(url);
 
 Create a path:
 ```javascript
-var path1 = urlUtils.createPath(
+var path1 = simpleUrl.createPath(
     '/foo/bar',
     {colors: ['red', 'green', 'blue']}
   );
@@ -82,7 +94,7 @@ console.log(path);
 * /foo/bar?colors%5B0%5D=red&colors%5B1%5D=green&colors%5B2%5D=blue
 */
 
-var path2 = urlUtils.createPath({
+var path2 = simpleUrl.createPath({
     pathname: '/foo/bar',
     query: {colors: ['red', 'green', 'blue']}
   });
@@ -114,6 +126,7 @@ This method parses the given `url` and returns `null`(invalid url) or `object` l
 ```
 __Note:__ `url` for **url.parse** is not necessary to be a complete url, it can be `//host.com : 8080/path?query=string#hash`, `/path?query=string`, etc.
 
+
 ### url.create(options)
 
 This method creates a url with the given options.
@@ -129,9 +142,16 @@ This method creates a url with the given options.
 
 None of these options is required, it will produce a `"http://localhost"` if you call `url.create()` only.
 
+
 ### url.createPath(pathname, query, hash) or url.createPath(options)
 
 This method simply crates a path and it's params have the same defaults with **url.create**'s. It leaves param `hash` there for convenience though it is not a part of path.
+
+
+### url.trimOrigin(url)
+
+This method will trim origin of the given url, and it will not decode any uri component or query.
+
 
 ### url.qs
 
