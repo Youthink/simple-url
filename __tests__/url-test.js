@@ -38,3 +38,11 @@ it('test url.create', () => {
   expect(url.createPath({pathname: '/foo/bar', query: {foo: 'bar'}, hash: 'bar'}))
     .toBe('/foo/bar?foo=bar#bar');
 });
+
+it('test url.trimOrigin', () => {
+  expect(url.trimOrigin('http://localhost:3000/foo/bar?foo=bar'))
+    .toBe('/foo/bar?foo=bar');
+
+  expect(url.trimOrigin('/foo/bar'))
+    .toBe('/foo/bar');
+});
