@@ -33,6 +33,12 @@ const url =  {
     hash = hash ? `#${encodeURIComponent(hash)}` : '';
     return encodeURI(pathname) + query + hash;
   },
+  trimOrigin: (url) => {
+    url = url || '';
+    url = url.replace(/(.*?)\/\/(.*?)\//, '');
+    url = url.charAt(0) === '/' ? url : '/' + url;
+    return url;
+  },
   qs: qs
 };
 
