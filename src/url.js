@@ -29,7 +29,8 @@ const url =  {
     }
     pathname = pathname || '/';
     pathname = pathname.charAt(0) === '/' ? pathname : '/' + pathname;
-    query = query ? (typeof query === 'string' ? `?${query}` : `?${qs.stringify(query)}`) : '';
+    query = query || {};
+    query = typeof query === 'string' ? `?${query}` : ( isEmptyObj(query) ? '' : `?${qs.stringify(query)}`);
     hash = hash ? `#${encodeURIComponent(hash)}` : '';
     return encodeURI(pathname) + query + hash;
   },
@@ -43,3 +44,12 @@ const url =  {
 };
 
 module.exports = url;
+
+function isEmptyObj(obj) {
+  for(var key in obj){
+    if(obj.hasOwnProperty(key)){
+      return false;
+    }
+  }
+  return true;
+}
