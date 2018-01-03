@@ -31,7 +31,7 @@ const url =  {
     pathname = pathname.charAt(0) === '/' ? pathname : '/' + pathname;
     query = query || {};
     query = typeof query === 'string' ? `?${query}` : ( isEmptyObj(query) ? '' : `?${qs.stringify(query)}`);
-    hash = hash ? `#${encodeURIComponent(hash)}` : '';
+    hash = hash ? `#${hash}` : '';
     return encodeURI(pathname) + query + hash;
   },
   trimOrigin: (url) => {
